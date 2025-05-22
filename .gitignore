@@ -399,3 +399,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+AirlineBookingSystem/.idea/.idea.AirlineBookingSystem/.idea/indexLayout.xml
+AirlineBookingSystem/.idea/.idea.AirlineBookingSystem/.idea/vcs.xml
