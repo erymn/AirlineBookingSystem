@@ -24,7 +24,7 @@ public class BookingRepository : IBookingRepository
     {
         string sql = @"
                 insert into Bookings(Id, FlightId, PassengerName, SeatNumber, BookingDate)
-                    values (newId(), @FlightId, @PassengerName, @SeatNumber, @BookingDate)
+                    values (@Id, @FlightId, @PassengerName, @SeatNumber, @BookingDate)
             ";
         
         await _connection.ExecuteAsync(sql, booking);

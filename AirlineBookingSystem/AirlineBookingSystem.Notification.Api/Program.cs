@@ -1,6 +1,11 @@
 using System.Data;
+using System.Reflection;
+using AirlineBookingSystem.Notification.Application.Handlers;
+using AirlineBookingSystem.Notification.Application.Interfaces;
+using AirlineBookingSystem.Notification.Application.Services;
 using AirlineBookingSystem.Notification.Core.Repositories;
 using AirlineBookingSystem.Notification.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,10 +15,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Register MediatR
+var assembly = new Assembly[]
+{
+    Assembly.GetExecutingAssembly(),
+    typeof(SendNotificationHandler).Assembly,
+};
+builder.Services.AddMediatR(assembly);
+
 builder.Services.AddScoped<IDbConnection>(sp =>
     new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 
 var app = builder.Build();
